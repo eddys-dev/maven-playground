@@ -35,6 +35,6 @@ public class Main {
         System.out.println(pruebametodo.edad);
         System.out.println(metodo);
 
-        //System.out.println(json);
+        System.out.println(json);
     }
 }
