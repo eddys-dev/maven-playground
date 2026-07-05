@@ -57,14 +57,19 @@ public class Main {
         List<User> users = gson.fromJson(json, type);
 
         for (User user : users) {
-            System.out.printf("""
+            System.out.printf(
+                    """
                     User ID: %d
                     Name: %s
                     Email: %s
                     City: %s
                     Phone: %s%n
-                    """
-                    , user.id, user.name, user.email, user.address.city, user.phone
+                    """,
+                    user.getId(),
+                    user.getName(),
+                    user.getEmail(),
+                    user.getAddress().getCity(),
+                    user.getPhone()
             );
         }
     }
