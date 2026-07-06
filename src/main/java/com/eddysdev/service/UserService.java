@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -16,15 +15,19 @@ public class UserService {
 
     public List<User> getUsers(){
 
-        return parseUsers(getJson());
+        return parseUsers(getJson("https://jsonplaceholder.typicode.com/users/"));
     }
 
-    private String getJson(){
+    public User getUserById(int id){
+        return gson.fromJson(getJson("https://jsonplaceholder.typicode.com/users/"+id), User.class);
+    }
+
+    private String getJson(String url){
 
         HttpClient client = HttpClient.newHttpClient();
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://jsonplaceholder.typicode.com/users"))
+                .uri(URI.create(url))
                 .build();
 
         HttpResponse<String> response;
@@ -43,10 +46,8 @@ public class UserService {
 
     private List<User> parseUsers(String json){
 
-        Gson gson = new Gson();
-
-        Type type = new TypeToken<List<User>>() {}.getType();
-
-        return gson.fromJson(json, type);
+        return gson.fromJson(json, new TypeToken<List<User>>() {}.getType());
     }
+
+    private final Gson gson = new Gson();
 }

@@ -9,9 +9,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-        UserService userserv = new UserService();
+        printUserById();
+    }
 
-        List<User> users = userserv.getUsers();
+    private static void printAllUsers(){
+
+        List<User> users = service.getUsers();
 
         for (User user : users) {
             System.out.printf(
@@ -30,4 +33,25 @@ public class Main {
             );
         }
     }
+
+    private static void printUserById(){
+
+        int id = 5;
+        System.out.printf(
+                """
+                User ID: %d
+                Name: %s
+                Email: %s
+                City: %s
+                Phone: %s%n
+                """,
+                service.getUserById(id).getId(),
+                service.getUserById(id).getName(),
+                service.getUserById(id).getEmail(),
+                service.getUserById(id).getAddress().getCity(),
+                service.getUserById(id).getPhone()
+        );
+    }
+
+    private static final UserService service = new UserService();
 }
