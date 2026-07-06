@@ -16,6 +16,11 @@ public class UserService {
 
     public List<User> getUsers(){
 
+        return parseUsers(getJson());
+    }
+
+    private String getJson(){
+
         HttpClient client = HttpClient.newHttpClient();
 
         HttpRequest request = HttpRequest.newBuilder()
@@ -33,15 +38,15 @@ public class UserService {
             throw new RuntimeException(e);
         }
 
-        String json = response.body();
-        //System.out.println(json);
+        return response.body();
+    }
+
+    private List<User> parseUsers(String json){
 
         Gson gson = new Gson();
 
         Type type = new TypeToken<List<User>>() {}.getType();
 
-        List<User> users = gson.fromJson(json, type);
-
-        return users;
+        return gson.fromJson(json, type);
     }
 }
