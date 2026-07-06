@@ -37,6 +37,9 @@ public class Main {
     private static void printUserById(){
 
         int id = 5;
+
+        User user = service.getUserById(id);
+
         System.out.printf(
                 """
                 User ID: %d
@@ -45,11 +48,11 @@ public class Main {
                 City: %s
                 Phone: %s%n
                 """,
-                service.getUserById(id).getId(),
-                service.getUserById(id).getName(),
-                service.getUserById(id).getEmail(),
-                service.getUserById(id).getAddress().getCity(),
-                service.getUserById(id).getPhone()
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getAddress().getCity(),
+                user.getPhone()
         );
     }
 

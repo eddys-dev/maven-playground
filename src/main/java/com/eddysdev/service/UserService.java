@@ -15,11 +15,12 @@ public class UserService {
 
     public List<User> getUsers(){
 
-        return parseUsers(getJson("https://jsonplaceholder.typicode.com/users/"));
+        return parseUsers(getJson(BASE_URL + "/users/"));
     }
 
     public User getUserById(int id){
-        return gson.fromJson(getJson("https://jsonplaceholder.typicode.com/users/"+id), User.class);
+
+        return gson.fromJson(getJson(BASE_URL + "/users/" + id), User.class);
     }
 
     private String getJson(String url){
@@ -50,4 +51,5 @@ public class UserService {
     }
 
     private final Gson gson = new Gson();
+    private static final String BASE_URL = "https://jsonplaceholder.typicode.com";
 }
