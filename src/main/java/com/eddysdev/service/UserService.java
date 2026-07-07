@@ -13,19 +13,21 @@ import java.util.List;
 
 public class UserService {
 
-    public List<User> getUsers(){
+    private final Gson gson = new Gson();
+    private static final String BASE_URL = "https://jsonplaceholder.typicode.com";
+    private final HttpClient client = HttpClient.newHttpClient();
+
+    public List<User> getUsers() {
 
         return parseUsers(getJson(BASE_URL + "/users/"));
     }
 
-    public User getUserById(int id){
+    public User getUserById(int id) {
 
         return gson.fromJson(getJson(BASE_URL + "/users/" + id), User.class);
     }
 
-    private String getJson(String url){
-
-        HttpClient client = HttpClient.newHttpClient();
+    private String getJson(String url) {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
@@ -45,11 +47,9 @@ public class UserService {
         return response.body();
     }
 
-    private List<User> parseUsers(String json){
+    private List<User> parseUsers(String json) {
 
-        return gson.fromJson(json, new TypeToken<List<User>>() {}.getType());
+        return gson.fromJson(json, new TypeToken<List<User>>() {
+        }.getType());
     }
-
-    private final Gson gson = new Gson();
-    private static final String BASE_URL = "https://jsonplaceholder.typicode.com";
 }
